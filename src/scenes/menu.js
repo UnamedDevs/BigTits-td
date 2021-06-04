@@ -11,11 +11,6 @@ class Menu extends Scene {
         super('menu');
     }
 
-    preload(){
-        this.load.image('background', 'assets/Menu/background.jpg');
-        this.load.image('hover-btn', 'assets/Menu/PNG/green_button00.png');
-        this.load.image('static-btn', 'assets/Menu/PNG/green_button01.png');
-    }
 
     create(){
         //background
@@ -41,7 +36,8 @@ class Menu extends Scene {
      }
     
     onStart =() => {
-        const clicked = new Audio('assets/Menu/Bonus/rollover1.ogg')
+        //go to map select, play button click
+        const clicked = new Audio('assets/Menu/Audio/rollover1.ogg')
         clicked.play();
         this.scene.switch('mapSelect')
         

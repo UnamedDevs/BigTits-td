@@ -7,21 +7,9 @@ export default class MapMenu extends Phaser.Scene{
         super('mapSelect')
     }
 
-    preload(){
-        //background
-        this.load.image('background', 'assets/Menu/menu_bg.jpg');
-        //button images
-        this.load.image('hover', 'assets/Menu/PNG/green_button00.png');
-        this.load.image('static', 'assets/Menu/PNG/green_button01.png');
-        this.load.image('left', 'assets/Menu/PNG/green_sliderLeft.png');
-        this.load.image('right', 'assets/Menu/PNG/green_sliderRight.png');
-        //maps
-        this.load.image('map','assets/Maps/Map_Rock.png');
-    }
-
     create(){
         //background
-        this.add.image(0,0,'background').setOrigin(0,0).setScale(0.5);
+        this.add.image(0,0,'menu_background').setOrigin(0,0).setScale(0.5);
 
         //screen center
         const centerX = this.cameras.main.centerX
@@ -38,12 +26,14 @@ export default class MapMenu extends Phaser.Scene{
     }
 
     goBack = () => {
-        const clicked = new Audio('assets/Menu/Bonus/rollover1.ogg')
+        //go back to menu
+        const clicked = new Audio('assets/Menu/Audio/rollover1.ogg')
         clicked.play();
         this.scene.switch('menu');
     }
 
     toNextMap = () => {
+        // to map one
         this.scene.switch('mapOne')
     }
 
