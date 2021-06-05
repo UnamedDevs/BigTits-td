@@ -1,5 +1,7 @@
-import Phaser, {Scene} from 'phaser';
+import Phaser from 'phaser';
 import initAnims from '../entities/anims';
+import Enemy from '../entities/enemy';
+
 
 class MapOne extends Phaser.Scene {
 
@@ -35,6 +37,11 @@ class MapOne extends Phaser.Scene {
             }
         })
 
+        //testing enemy class
+        let skelly = new Enemy(this, this.path, 20, 75, 'skelly');
+        skelly.startFollow({
+            duration: 20000
+        })
     }   
 
     update(){

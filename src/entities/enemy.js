@@ -1,10 +1,26 @@
 import Phaser from 'phaser';
+import initAnims from './anims';
 
 class Enemy extends Phaser.GameObjects.PathFollower {
-    constructor(scene, path, x, y){
-        super(scene, path, x, y);
-        this.health;
+    constructor(scene, path, x, y, texture){
+        super(scene, path, x, y, texture);
+        this.scene   = scene;
+        this.texture = texture;
+        
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
 
+
+        this.init();
+        this.health;
+    }
+
+    init(){
+        initAnims(this.scene.anims);
+    }
+
+    update(){
+        
     }
 
 }
