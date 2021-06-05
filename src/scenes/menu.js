@@ -1,6 +1,5 @@
 import {Scene} from 'phaser';
-import BtnSprite from '../modules/Button';
-import MapMenu from './mapSelect';
+import BtnSprite from '../entities/Button';
 
 
 class Menu extends Scene {

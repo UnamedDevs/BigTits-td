@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import BtnSprite from '../modules/Button';
+import BtnSprite from '../entities/Button';
 
 export default class MapMenu extends Phaser.Scene{
 
