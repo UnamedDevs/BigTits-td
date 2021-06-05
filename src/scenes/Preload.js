@@ -27,6 +27,10 @@ class Preload extends Phaser.Scene {
             frameWidth: 32,
             frameHeight: 25,
         })
+        this.load.spritesheet('skelly', 'assets/enemies/skelly.png', {
+            frameWidth: 64,
+            frameHeight: 64
+        })
     }
 
     create(){

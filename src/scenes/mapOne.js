@@ -1,5 +1,5 @@
 import Phaser, {Scene} from 'phaser';
-
+import initAnims from '../entities/anims';
 
 class MapOne extends Phaser.Scene {
 
@@ -19,8 +19,8 @@ class MapOne extends Phaser.Scene {
         //background
         this.add.image(0, 0, 'map').setOrigin(0);
         
-        // enemy animations
-        this.createSlimeAnims();
+        // initialize animations
+        initAnims(this.anims)
 
         //path for enemies
         this.path = this.createPath();
@@ -39,7 +39,7 @@ class MapOne extends Phaser.Scene {
 
     update(){
         if( this.follower.anims !== undefined ){
-            this.follower.anims.play('walk', true);
+            this.follower.anims.play('slime move', true);
         }
     }
 
@@ -62,19 +62,9 @@ class MapOne extends Phaser.Scene {
         return path
     }
 
-    createSlimeAnims(){
-        // create animations for slime
-        this.anims.create({
-            key:'walk',
-            frames: this.anims.generateFrameNumbers('slime', {start:0, end:9}),
-            frameRate: 5,
-            repeat: 0
-        })
-    }
 }
 
 export default MapOne;
-
 
 /**
     //this.slime = this.add.sprite(20, 75, 'slime');
