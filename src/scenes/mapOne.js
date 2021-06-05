@@ -11,6 +11,7 @@ class MapOne extends Phaser.Scene {
 
         this.enemySpeed = 50;
         this.slime;
+        this.skelly;
         this.path;
         this.follower;
         this.totalEnemies = 5;
@@ -38,16 +39,18 @@ class MapOne extends Phaser.Scene {
         })
 
         //testing enemy class
-        let skelly = new Enemy(this, this.path, 20, 75, 'skelly');
-        skelly.startFollow({
+        this.skelly = new Enemy(this, this.path, 20, 75, 'skelly');
+        this.skelly.startFollow({
             duration: 20000
         })
     }   
 
     update(){
+        this.skelly.anims.play('skelly move', true);
         if( this.follower.anims !== undefined ){
             this.follower.anims.play('slime move', true);
         }
+
     }
 
     createPath = () => {

@@ -8,7 +8,7 @@ export default (anims) => {
 
     anims.create({
         key:'skelly move',
-        frames: anims.generateFrameNumbers('skelly', {start:27, end:38}),
+        frames: anims.generateFrameNumbers('skelly', {start:26, end:37}),
         frameRate: 5,
         repeat: 0
     });

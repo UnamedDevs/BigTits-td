@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-import initAnims from './anims';
 
 class Enemy extends Phaser.GameObjects.PathFollower {
     constructor(scene, path, x, y, texture){
@@ -16,11 +15,11 @@ class Enemy extends Phaser.GameObjects.PathFollower {
     }
 
     init(){
-        initAnims(this.scene.anims);
+        
     }
 
     update(){
-        
+
     }
 
 }
