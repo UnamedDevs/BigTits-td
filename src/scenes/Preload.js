@@ -31,6 +31,9 @@ class Preload extends Phaser.Scene {
             frameWidth: 64,
             frameHeight: 64
         })
+
+        //Towers?
+        this.load.image('lightningTower', 'assets/Towers/lightningTower.png');
     }
 
     create(){

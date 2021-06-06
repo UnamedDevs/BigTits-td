@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import initAnims from '../entities/anims';
 import Enemy from '../entities/enemy';
+import Tower from '../entities/tower';
 
 
 class MapOne extends Phaser.Scene {
@@ -22,6 +23,9 @@ class MapOne extends Phaser.Scene {
         //background
         this.add.image(0, 0, 'map').setOrigin(0);
         
+        //Towers
+        let tower = new Tower(this, 230, 200, 'lightningTower').setScale(0.2); 
+        
         // initialize animations
         initAnims(this.anims)
 
@@ -41,12 +45,17 @@ class MapOne extends Phaser.Scene {
         //testing enemy class
         this.skelly = new Enemy(this, this.path, 20, 75, 'skelly');
         this.skelly.startFollow({
-            duration: 20000
+            duration: 20000,
+            onComplete: () => {
+                this.skelly.destroy()
+            }
         })
     }   
 
     update(){
-        this.skelly.anims.play('skelly move', true);
+        if(this.skelly.anims !== undefined){
+            this.skelly.anims.play('skelly move', true);
+        }
         if( this.follower.anims !== undefined ){
             this.follower.anims.play('slime move', true);
         }
