@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import initAnims from '../entities/anims';
 import Enemy from '../entities/enemy';
 import Tower from '../entities/tower';
+import enemyList from '../entities/enemiesList';
 
 
 class MapOne extends Phaser.Scene {
@@ -9,20 +10,23 @@ class MapOne extends Phaser.Scene {
     constructor(){
         super('mapOne');
 
-
-        this.enemySpeed = 50;
+        this.start = {x: 20, y: 75};
+        this.enemySpeed = 20000;
+        this.enemyLimit = 10;
+        this.round;
+        this.path;
         this.slime;
         this.skelly;
-        this.path;
         this.follower;
-        this.totalEnemies = 5;
+        this.eList = enemyList;
+
     }
 
 
     create(){
         //background
         this.add.image(0, 0, 'map').setOrigin(0);
-        
+
         //Towers
         let tower = new Tower(this, 230, 200, 'lightningTower').setScale(0.2); 
         
@@ -31,41 +35,33 @@ class MapOne extends Phaser.Scene {
 
         //path for enemies
         this.path = this.createPath();
-        
-        //testing follower
-        this.follower = this.add.follower(this.path, 20, 75, 'slime');
-        this.physics.add.existing(this.follower);
-        this.follower.startFollow({
-            duration: 10000,
-            onComplete: () =>{
-                this.follower.destroy()
-            }
-        })
 
-        //testing enemy class
-        this.skelly = new Enemy(this, this.path, 20, 75, 'skelly');
-        this.skelly.startFollow({
-            duration: 20000,
-            onComplete: () => {
-                this.skelly.destroy()
-            }
-        })
+        //this.time.delayedCall(10000, this.spawnRandom(i) )
+        this.round = this.time.addEvent({
+            delay: 1500,
+            callback: () => {
+                this.enemyLimit--;
+                let tmpDude = this.spawnRandom();
+                this.physics.add.collider(tower, tmpDude, () =>{
+                    console.log('hi')
+                })
+            },
+            callbackScope: this,
+            loop: true
+        });
+        
+
     }   
 
-    update(){
-        if(this.skelly.anims !== undefined){
-            this.skelly.anims.play('skelly move', true);
+    update(time, delta){
+        if(this.enemyLimit === 0 ){
+            this.time.removeEvent(this.round);
         }
-        if( this.follower.anims !== undefined ){
-            this.follower.anims.play('slime move', true);
-        }
-
     }
 
     createPath = () => {
         //creates a path
         let path = new Phaser.Curves.Path(20,75);
-        //let path = this.add.path(20, 75);
 
         path.lineTo(170, 75);
         path.lineTo(170, 215);
@@ -81,12 +77,74 @@ class MapOne extends Phaser.Scene {
         return path
     }
 
+    spawnRandom(){
+        let rnd = Math.floor(Math.random() * this.eList.length)
+        let rndEnemy = new Enemy(this, this.path, this.start.x, this.start.y, this.eList[rnd].texture);
+        rndEnemy.startFollow({
+            duration: this.enemySpeed + rnd,
+            onComplete: () => {
+                rndEnemy.destroy();
+            }
+        }).play(this.eList[rnd].anim, true)
+
+        return rndEnemy;
+    }
+
 }
 
 export default MapOne;
 
+
+//projectile code
 /**
-    //this.slime = this.add.sprite(20, 75, 'slime');
-    //this.physics.add.existing(this.slime);
-    //this.physics.moveTo(this.slime, 660, 300, this.enemySpeed);
+        this.laser = this.physics.add.group({
+            defaultKey:'laser',
+            maxSize: 4
+        })
+        
+        this.physics.add.existing(this.laser);
+
+        this.input.on('pointerdown', (e)=>{
+            let beam = this.laser.get(e.x, e.y)
+            console.log('uhhh')
+            if(beam){
+                beam.setActive(true)
+                beam.setVisible(true);
+                beam.body.velocity.y = -200;
+            }  
+          }, this)
+        
+    // in update
+            this.laser.children.each( (beam)=>{
+            if(beam.active){
+                if(beam.y < 0){
+                    beam.setActive(false);
+                }
+            }
+        })
+
+        //testing follower
+        this.follower = this.add.follower(this.path, 20, 75, 'slime');
+        this.physics.add.existing(this.follower);
+        this.follower.startFollow({
+            duration: 10000,
+            onComplete: () =>{
+                this.follower.destroy()
+            }
+        }).play('slime move', true);
+
+        //testing enemy class
+        this.skelly = new Enemy(this, this.path, 20, 75, 'skelly');
+        this.skelly.startFollow({
+            duration: 20000,
+            onComplete: () => {
+                this.skelly.destroy()
+            }
+        }).play('skelly move', true);
+
+        //Collision Detection
+        this.physics.add.collider(tower, this.skelly, ()=>{
+            console.log('we collided <3');
+        })
+
  */

@@ -34,6 +34,12 @@ class Preload extends Phaser.Scene {
 
         //Towers?
         this.load.image('lightningTower', 'assets/Towers/lightningTower.png');
+
+        //Projectiles
+        this.load.spritesheet('laser', 'assets/Projectiles/laser.png', {
+            frameWidth: 256,
+            frameHeight: 64
+        })
     }
 
     create(){

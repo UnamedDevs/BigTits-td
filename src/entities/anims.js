@@ -13,4 +13,10 @@ export default (anims) => {
         repeat: 0
     });
     
+    anims.create({
+        key:'laser blast',
+        frames: anims.generateFrameNumbers('laser', {start:0, end:6}),
+        frameRate: 5,
+        repeat: 0
+    });
 }
