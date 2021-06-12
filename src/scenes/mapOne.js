@@ -11,8 +11,8 @@ class MapOne extends Phaser.Scene {
         super('mapOne');
 
         this.start = {x: 20, y: 75};
-        this.enemySpeed = 20000;
-        this.enemyLimit = 10;
+        this.enemySpeed = 10000;
+        this.enemyLimit = 100;
         this.playerHealth;
         this.round;
         this.path;
@@ -23,10 +23,14 @@ class MapOne extends Phaser.Scene {
 
     }
 
+    init(data){
+        this.selectedMap = data.map;
+    }
 
     create(){
         //background
-        this.add.image(0, 0, 'map').setOrigin(0);
+        console.log(this.selectedMap, 'selected map');
+        this.add.image(0, 0, this.selectedMap).setOrigin(0);
 
         //---
         this.playerHealth = this.playerInfo();
@@ -50,7 +54,7 @@ class MapOne extends Phaser.Scene {
         
         // delay enemy spawn and loop
         this.round = this.time.addEvent({
-            delay: 1500,
+            delay: 500,
             callback: () => {
                 this.enemyLimit--;
                 let tmpDude = this.spawnRandom(this.playerHealth);
@@ -68,6 +72,11 @@ class MapOne extends Phaser.Scene {
     update(time, delta){
         if(this.enemyLimit === 0 ){
             this.time.removeEvent(this.round);
+        }
+
+        if(this.playerHealth.data.values.health === 0){
+            this.time.removeEvent(this.round);
+            console.log('game over');
         }
     }
 
@@ -98,7 +107,7 @@ class MapOne extends Phaser.Scene {
                 rndEnemy.destroy();
                 adjustPlayerHealthOnEnd.data.values.health -= 1;
             }
-        }).play(this.eList[rnd].anim, true)
+        }).play(this.eList[rnd].anim, false)
 
         return rndEnemy;
     }
@@ -115,57 +124,3 @@ class MapOne extends Phaser.Scene {
 
 export default MapOne;
 
-
-//projectile code
-/**
-        this.laser = this.physics.add.group({
-            defaultKey:'laser',
-            maxSize: 4
-        })
-        
-        this.physics.add.existing(this.laser);
-
-        this.input.on('pointerdown', (e)=>{
-            let beam = this.laser.get(e.x, e.y)
-            console.log('uhhh')
-            if(beam){
-                beam.setActive(true)
-                beam.setVisible(true);
-                beam.body.velocity.y = -200;
-            }  
-          }, this)
-        
-    // in update
-            this.laser.children.each( (beam)=>{
-            if(beam.active){
-                if(beam.y < 0){
-                    beam.setActive(false);
-                }
-            }
-        })
-
-        //testing follower
-        this.follower = this.add.follower(this.path, 20, 75, 'slime');
-        this.physics.add.existing(this.follower);
-        this.follower.startFollow({
-            duration: 10000,
-            onComplete: () =>{
-                this.follower.destroy()
-            }
-        }).play('slime move', true);
-
-        //testing enemy class
-        this.skelly = new Enemy(this, this.path, 20, 75, 'skelly');
-        this.skelly.startFollow({
-            duration: 20000,
-            onComplete: () => {
-                this.skelly.destroy()
-            }
-        }).play('skelly move', true);
-
-        //Collision Detection
-        this.physics.add.collider(tower, this.skelly, ()=>{
-            console.log('we collided <3');
-        })
-
- */

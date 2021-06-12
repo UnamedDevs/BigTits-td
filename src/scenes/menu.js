@@ -1,12 +1,9 @@
 import {Scene} from 'phaser';
-import BtnSprite from '../entities/Button';
+import {Button} from '../entities/Button';
 
 
 class Menu extends Scene {
-
-
-
-    constructor(){
+   constructor(){
         super('menu');
     }
 
@@ -14,21 +11,21 @@ class Menu extends Scene {
     create(){
         //background
         const background =this.add.image(0, 0, 'background').setOrigin(0,0)
-        background.setScale(0.6)
+        background.setScale(0.3)
         //Center (x, y) 
         const centerX = this.cameras.main.centerX
         const centeryY = this.cameras.main.centerY
 
         //got textures changing on hover working next add callback functions
-        const play = this.add.existing( new BtnSprite(this, centerX - 200 , centeryY + 50, 'Play','static-btn', 'hover-btn', this.onStart ))
-        const quit = this.add.existing( new BtnSprite(this, centerX + 200 , centeryY + 50,  'Quit','static-btn', 'hover-btn', this.quit ))
+        const play = new Button(this, centerX - 200 , centeryY + 50, 'Play', this.onStart )
+        const quit = new Button(this, centerX + 200 , centeryY + 50,  'Quit', this.quit )
         
         quit.text.setStyle({ fill: 'blue'})
 
-        const banner = this.add.text(centerX - 200 , centeryY - 100, 'Space Invaders')
+        const banner = this.add.text(centerX - 200 , centeryY - 70, 'Waifu Defenders')
                            .setStyle({
                                font:'6em Georgia',
-                               fill:'Green'
+                               fill:'Purple'
                            })
         
         

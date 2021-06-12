@@ -7,21 +7,22 @@ class Preload extends Phaser.Scene {
 
     preload(){
         // Menu
-        this.load.image('background', 'assets/Menu/background.jpg');
+        this.load.image('background', 'assets/Menu/waifu_bg.png');
         this.load.image('hover-btn', 'assets/Menu/PNG/green_button00.png');
         this.load.image('static-btn', 'assets/Menu/PNG/green_button01.png');
-        this.load.image('menu_background', 'assets/Menu/menu_bg.jpg');
+        this.load.image('menu_background', 'assets/Menu/waifu_2.jpg');
         this.load.image('heart', 'assets/Menu/heart.png');
 
         //button images
-        this.load.image('hover', 'assets/Menu/PNG/green_button00.png');
-        this.load.image('static', 'assets/Menu/PNG/green_button01.png');
-        this.load.image('left', 'assets/Menu/PNG/green_sliderLeft.png');
-        this.load.image('right', 'assets/Menu/PNG/green_sliderRight.png');
+        this.load.image('hover', 'assets/Menu/PNG/blue_button00.png');
+        this.load.image('static', 'assets/Menu/PNG/blue_button01.png');
+        this.load.image('left', 'assets/Menu/PNG/blue_sliderLeft.png');
 
         // Map
-        this.load.image('map', 'assets/Maps/Map_Rock.png');
+        this.load.image('map_rock', 'assets/Maps/Map_Rock.png');
+        this.load.image('proto_map', 'assets/Maps/protoMap.png');
         this.load.image('tower', 'assets/Towers/towerDefense_tile205.png');
+
 
         //Entities
         this.load.spritesheet('slime', 'assets/enemies/slime-sheet.png', {
