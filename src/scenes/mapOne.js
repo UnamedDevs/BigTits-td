@@ -13,6 +13,7 @@ class MapOne extends Phaser.Scene {
         this.start = {x: 20, y: 75};
         this.enemySpeed = 20000;
         this.enemyLimit = 10;
+        this.playerHealth;
         this.round;
         this.path;
         this.slime;
@@ -27,6 +28,17 @@ class MapOne extends Phaser.Scene {
         //background
         this.add.image(0, 0, 'map').setOrigin(0);
 
+        //---
+        this.playerHealth = this.playerInfo();
+
+        let text = this.add.text(100, 25, '', {font:'16px'});
+        text.setText(this.playerHealth.data.get('health'));
+
+        //working but not text updating correctly
+        this.playerHealth.on('changedata-health', (obj, val )=> {
+            text.setText([val]);
+        })
+
         //Towers
         let tower = new Tower(this, 230, 200, 'lightningTower').setScale(0.2); 
         
@@ -35,13 +47,13 @@ class MapOne extends Phaser.Scene {
 
         //path for enemies
         this.path = this.createPath();
-
-        //this.time.delayedCall(10000, this.spawnRandom(i) )
+        
+        // delay enemy spawn and loop
         this.round = this.time.addEvent({
             delay: 1500,
             callback: () => {
                 this.enemyLimit--;
-                let tmpDude = this.spawnRandom();
+                let tmpDude = this.spawnRandom(this.playerHealth);
                 this.physics.add.collider(tower, tmpDude, () =>{
                     console.log('hi')
                 })
@@ -77,17 +89,26 @@ class MapOne extends Phaser.Scene {
         return path
     }
 
-    spawnRandom(){
+    spawnRandom(adjustPlayerHealthOnEnd){
         let rnd = Math.floor(Math.random() * this.eList.length)
         let rndEnemy = new Enemy(this, this.path, this.start.x, this.start.y, this.eList[rnd].texture);
         rndEnemy.startFollow({
             duration: this.enemySpeed + rnd,
             onComplete: () => {
                 rndEnemy.destroy();
+                adjustPlayerHealthOnEnd.data.values.health -= 1;
             }
         }).play(this.eList[rnd].anim, true)
 
         return rndEnemy;
+    }
+
+    playerInfo(){
+        let playerHealth = this.add.image(100, 25, 'heart');
+        playerHealth.setDataEnabled();
+        playerHealth.data.set('health', 100);
+
+        return playerHealth
     }
 
 }

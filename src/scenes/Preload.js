@@ -11,6 +11,7 @@ class Preload extends Phaser.Scene {
         this.load.image('hover-btn', 'assets/Menu/PNG/green_button00.png');
         this.load.image('static-btn', 'assets/Menu/PNG/green_button01.png');
         this.load.image('menu_background', 'assets/Menu/menu_bg.jpg');
+        this.load.image('heart', 'assets/Menu/heart.png');
 
         //button images
         this.load.image('hover', 'assets/Menu/PNG/green_button00.png');
