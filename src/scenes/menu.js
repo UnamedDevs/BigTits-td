@@ -17,10 +17,7 @@ class Menu extends Scene {
         const centeryY = this.cameras.main.centerY
 
         //got textures changing on hover working next add callback functions
-        const play = new Button(this, centerX - 200 , centeryY + 50, 'Play', this.onStart )
-        const quit = new Button(this, centerX + 200 , centeryY + 50,  'Quit', this.quit )
-        
-        quit.text.setStyle({ fill: 'blue'})
+        const play = new Button(this, centerX, centeryY + 50, 'Play', this.onStart )
 
         const banner = this.add.text(centerX - 200 , centeryY - 70, 'Waifu Defenders')
                            .setStyle({
@@ -37,11 +34,6 @@ class Menu extends Scene {
         clicked.play();
         this.scene.switch('mapSelect')
         
-    }
-
-    // won't need quit button for browser game
-    quit = () => {
-        window.close();
     }
 }
 

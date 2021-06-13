@@ -5,6 +5,7 @@ export default class MapMenu extends Phaser.Scene{
 
     constructor(){
         super('mapSelect');
+        this.counter = 0;
     }
 
     create(){
@@ -26,10 +27,9 @@ export default class MapMenu extends Phaser.Scene{
             .setScrollFactor(0,0)
             .setFlipX(true)
         
-        // map adjust or create new class for map sprites 
-        const map1 = new BtnSprite(this, centerX, centerY,'','map_rock','map_rock', () => {this.toNextMap('map_rock')}  )
+        const map1 = new BtnSprite(this, centerX, centerY,'','desertPlanet','desertPlanet', () => {this.toNextMap('map_rock')}  )
         map1.setScale(0.3);
-        const map2 = new BtnSprite(this, centerX + 600, centerY, '', 'proto_map', 'proto_map', () => {this.toNextMap('proto_map')} );
+        const map2 = new BtnSprite(this, centerX + 600, centerY, '', 'icePlanet', 'icePlanet', () => {this.toNextMap('proto_map')} );
         map2.setScale(0.3);
     }
 
@@ -46,11 +46,17 @@ export default class MapMenu extends Phaser.Scene{
     }
 
     scrollLeft = () => {
-        this.cameras.main.scrollX -= 600;
+        if(this.counter != 0 || this.counter > 0 ){
+            this.cameras.main.scrollX -= 600;
+            this.counter -=1
+        }
     }
 
     scrollRight = () => {
-        this.cameras.main.scrollX += 600;
+        if(this.counter === 0 || this.counter < 0 ){
+            this.cameras.main.scrollX += 600;
+            this.counter += 1
+        }
     }
 
 

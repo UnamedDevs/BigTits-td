@@ -10,7 +10,7 @@ class Preload extends Phaser.Scene {
         this.load.image('background', 'assets/Menu/waifu_bg.png');
         this.load.image('hover-btn', 'assets/Menu/PNG/green_button00.png');
         this.load.image('static-btn', 'assets/Menu/PNG/green_button01.png');
-        this.load.image('menu_background', 'assets/Menu/waifu_2.jpg');
+        this.load.image('menu_background', 'assets/Menu/waifu_3.jpeg');
         this.load.image('heart', 'assets/Menu/heart.png');
 
         //button images
@@ -21,8 +21,8 @@ class Preload extends Phaser.Scene {
         // Map
         this.load.image('map_rock', 'assets/Maps/Map_Rock.png');
         this.load.image('proto_map', 'assets/Maps/protoMap.png');
-        this.load.image('tower', 'assets/Towers/towerDefense_tile205.png');
-
+        this.load.image('desertPlanet', 'assets/Maps/desertPlanet.png');
+        this.load.image('icePlanet', 'assets/Maps/icePlanet.png');
 
         //Entities
         this.load.spritesheet('slime', 'assets/enemies/slime-sheet.png', {
@@ -36,6 +36,7 @@ class Preload extends Phaser.Scene {
 
         //Towers?
         this.load.image('lightningTower', 'assets/Towers/lightningTower.png');
+        this.load.image('pp', 'assets/Towers/ppTower.png');
 
         //Projectiles
         this.load.spritesheet('laser', 'assets/Projectiles/laser.png', {
