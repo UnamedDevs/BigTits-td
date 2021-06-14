@@ -9,7 +9,7 @@ export class BtnSprite extends Phaser.GameObjects.Sprite {
         this.text = this.setText()
 
         //Button Event
-        this.setInteractive({useHandCursos: true})
+        this.setInteractive({useHandCursor: true})
             .on('pointerover', () => { this.setTexture(secondTexture)
             this.text.setStyle({fill:'green'}) })
             .on('pointerout', () => { this.setTexture(texture)
@@ -35,24 +35,21 @@ export class Button extends Phaser.GameObjects.Sprite {
         this.setTexture('static')
         this.text = text
         this.scene.add.existing(this)
-        this.text = this.setText().setScrollFactor(0,0);
+
+        this.txt = this.scene.add.text(0,0, this.text, {font: '4em Ariel', fill: 'white'}).setOrigin(0.5);
+        this.txt.setX( this.getCenter().x)
+            .setY( this.getCenter().y)
+            .setScrollFactor(0,0);
+        //this.text = this.setText().setScrollFactor(0,0);
 
         //Button Event
-        this.setInteractive({useHandCursos: true})
+        this.setInteractive({useHandCursor: true})
             .on('pointerover', () => { this.setTexture('hover')
-            this.text.setStyle({fill:'blue'}) })
+            this.txt.setStyle({fill:'blue'}) })
             .on('pointerout', () => { this.setTexture('static')
-            this.text.setStyle({fill:'white'}) })
+            this.txt.setStyle({fill:'white'}) })
             .on('pointerdown', () => { callback() })
 
-    }
-
-    setText(){
-        let text = this.scene.add.text(0,0, this.text, {font: '4em Ariel', fill: 'white'}).setOrigin(0.5);
-        text.setX( this.getCenter().x)
-        text.setY( this.getCenter().y)
-
-        return text;
     }
 
 }
@@ -67,7 +64,7 @@ export class ArrowButton extends Phaser.GameObjects.Sprite {
         this.text = this.setText().setScrollFactor(0,0);
 
         //Button Event
-        this.setInteractive({useHandCursos: true})
+        this.setInteractive({useHandCursor: true})
             .on('pointerover', () => { this.setTexture('left')
             this.text.setStyle({fill:'blue'}) })
             .on('pointerout', () => { this.setTexture('left')
@@ -94,7 +91,7 @@ export class Xbutton extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this)
 
         //Button Event
-        this.setInteractive({useHandCursos: true})
+        this.setInteractive({useHandCursor: true})
             .on('pointerdown', () => { callback() })
 
     }

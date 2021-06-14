@@ -37,7 +37,7 @@ export default class MapMenu extends Phaser.Scene{
         //go back to menu
         const clicked = new Audio('assets/Menu/Audio/rollover1.ogg')
         clicked.play();
-        this.scene.switch('menu');
+        this.scene.start('menu');
     }
 
     toNextMap = (map) => {

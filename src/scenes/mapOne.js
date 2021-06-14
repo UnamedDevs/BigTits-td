@@ -33,8 +33,9 @@ class MapOne extends Phaser.Scene {
         //background
         this.add.image(0, 0, this.selectedMap).setOrigin(0);
         //---
-        this.menu = new Xbutton(this, 20, 20, '', () => {
-            this.pauseMenu();
+        this.pmenu  = this.pauseMenu().setVisible(false);
+        this.menuBtn = new Xbutton(this, 20, 20, '', () => {
+            this.pmenu.visible === false ? this.pmenu.setVisible(true) : this.pmenu.setVisible(false)
         });
 
         //---PLAYER HEALTH----
@@ -103,7 +104,7 @@ class MapOne extends Phaser.Scene {
     }
 
     pauseMenu() {
-        const popup = new InGameMenu(this, 30, 30);
+        const popup = new InGameMenu(this, 120, 30);
         this.input.setDraggable(popup);
         this.input.on('drag', (pointer, obj, x, y)=> {
             obj.x = x;

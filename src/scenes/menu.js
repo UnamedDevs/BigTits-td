@@ -33,7 +33,7 @@ class Menu extends Scene {
         //go to map select, play button click
         const clicked = new Audio('assets/Menu/Audio/rollover1.ogg')
         clicked.play();
-        this.scene.switch('mapSelect')
+        this.scene.start('mapSelect')
         
     }
 }
