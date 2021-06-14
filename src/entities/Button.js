@@ -85,3 +85,18 @@ export class ArrowButton extends Phaser.GameObjects.Sprite {
     }
 
 }
+
+export class Xbutton extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, text, callback ){
+        super(scene, x, y, text);
+        // Button Text
+        this.setTexture('cross')
+        this.scene.add.existing(this)
+
+        //Button Event
+        this.setInteractive({useHandCursos: true})
+            .on('pointerdown', () => { callback() })
+
+    }
+
+}

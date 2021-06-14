@@ -4,6 +4,8 @@ import Enemy from '../entities/enemy';
 import Tower from '../entities/tower';
 import enemyList from '../mixins/enemiesList';
 import {createRockPath, createProtoPath} from '../mixins/paths';
+import {Xbutton} from '../entities/Button';
+import InGameMenu from '../entities/ingameMenu';
 
 
 class MapOne extends Phaser.Scene {
@@ -30,6 +32,10 @@ class MapOne extends Phaser.Scene {
     create(){
         //background
         this.add.image(0, 0, this.selectedMap).setOrigin(0);
+        //---
+        this.menu = new Xbutton(this, 20, 20, '', () => {
+            this.pauseMenu();
+        });
 
         //---PLAYER HEALTH----
         this.playerHealth = this.playerInfo();
@@ -94,6 +100,16 @@ class MapOne extends Phaser.Scene {
         playerHealth.data.set('health', 100);
 
         return playerHealth
+    }
+
+    pauseMenu() {
+        const popup = new InGameMenu(this, 30, 30);
+        this.input.setDraggable(popup);
+        this.input.on('drag', (pointer, obj, x, y)=> {
+            obj.x = x;
+            obj.y = y;
+        });
+        return popup;
     }
 
 }

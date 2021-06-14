@@ -2,6 +2,7 @@ import {Scene} from 'phaser';
 import {Button} from '../entities/Button';
 
 
+
 class Menu extends Scene {
    constructor(){
         super('menu');
@@ -10,8 +11,9 @@ class Menu extends Scene {
 
     create(){
         //background
-        const background =this.add.image(0, 0, 'background').setOrigin(0,0)
-        background.setScale(0.3)
+        const background =this.add.image(0, 0, 'background')
+            .setOrigin(0,0)
+            .setScale(0.3);
         //Center (x, y) 
         const centerX = this.cameras.main.centerX
         const centeryY = this.cameras.main.centerY
@@ -24,7 +26,6 @@ class Menu extends Scene {
                                font:'6em Georgia',
                                fill:'Purple'
                            })
-        
         
      }
     
