@@ -1,9 +1,9 @@
 import './main.css';
 import Phaser, {Game} from 'phaser';
-import MapOne from './scenes/mapOne'
 import Menu from './scenes/menu';
-import MapMenu from './scenes/mapSelect';
 import Preload from './scenes/Preload';
+import MapMenu from './scenes/mapSelect';
+import MapOne from './scenes/mapOne';
 
 const canvas = document.getElementById('game');
 const config = {
@@ -11,6 +11,8 @@ const config = {
   width: 900,
   height: 400,
   canvas,
+  transparent: true,
+  backgroundColor: 'rgba(255, 110, 110, 0)',
   physics: {
     default: 'arcade',
     arcade: {

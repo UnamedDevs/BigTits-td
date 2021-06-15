@@ -41,7 +41,6 @@ export default class MapMenu extends Phaser.Scene{
     }
 
     toNextMap = (map) => {
-        this.scene.pause();
         this.scene.start('mapOne',{map:map});
     }
 
