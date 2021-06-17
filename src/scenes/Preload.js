@@ -9,7 +9,8 @@ class Preload extends Phaser.Scene {
         // Menu
         this.load.image('background', 'assets/Menu/waifu_bg.png');
         this.load.image('menu_background', 'assets/Menu/waifu_3.jpeg');
-        this.load.image('popup', 'assets/Menu/waifu_2.jpg');
+        this.load.image('pauseMenu', 'assets/Menu/waifu_4.jpg');
+
         this.load.image('heart', 'assets/Menu/heart.png');
 
         //button images
@@ -36,7 +37,7 @@ class Preload extends Phaser.Scene {
 
         //Towers?
         this.load.image('lightningTower', 'assets/Towers/lightningTower.png');
-        this.load.image('pp', 'assets/Towers/ppTower.png');
+        this.load.image('pp', 'assets/Towers/Doki.png');
 
         //Projectiles
         this.load.spritesheet('laser', 'assets/Projectiles/laser.png', {

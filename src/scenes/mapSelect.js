@@ -41,7 +41,8 @@ export default class MapMenu extends Phaser.Scene{
     }
 
     toNextMap = (map) => {
-        this.scene.start('mapOne',{map:map});
+        localStorage.setItem('map', map);
+        this.scene.start('mapOne');
     }
 
     scrollLeft = () => {

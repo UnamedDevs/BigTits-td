@@ -4,6 +4,7 @@ import Menu from './scenes/menu';
 import Preload from './scenes/Preload';
 import MapMenu from './scenes/mapSelect';
 import MapOne from './scenes/mapOne';
+import PauseMenu from './scenes/pauseMenu';
 
 const canvas = document.getElementById('game');
 const config = {
@@ -24,7 +25,8 @@ const config = {
     Preload,
     Menu,
     MapMenu,
-    MapOne
+    MapOne,
+    PauseMenu
   ]
 };
 

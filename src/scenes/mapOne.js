@@ -5,8 +5,6 @@ import Tower from '../entities/tower';
 import enemyList from '../mixins/enemiesList';
 import {createRockPath, createProtoPath} from '../mixins/paths';
 import {Xbutton} from '../entities/Button';
-import InGameMenu from '../entities/ingameMenu';
-
 
 class MapOne extends Phaser.Scene {
 
@@ -26,21 +24,19 @@ class MapOne extends Phaser.Scene {
     }
 
     init(data){
-        this.selectedMap = data.map;
+        this.selectedMap = localStorage.getItem('map')
     }
 
     create(){
         //background
         this.add.image(0, 0, this.selectedMap).setOrigin(0);
         //---
-        this.pmenu  = this.pauseMenu().setVisible(false);
         this.menuBtn = new Xbutton(this, 20, 20, '', () => {
-            this.pmenu.visible === false ? this.pmenu.setVisible(true) : this.pmenu.setVisible(false)
+            this.scene.stop();
+            this.scene.start('pmenu');
         });
-
         //---PLAYER HEALTH----
         this.playerHealth = this.playerInfo();
-
         let text = this.add.text(100, 25, '', {font:'16px'});
         text.setText(this.playerHealth.data.get('health'));
         this.playerHealth.on('changedata-health', (obj, val )=> {
@@ -49,8 +45,9 @@ class MapOne extends Phaser.Scene {
         //------------
         //Towers
         let tower = new Tower(this, 230, 200, 'pp')
+            .setOrigin(0)
             .setFlipX(true)
-            .setScale(0.2);      
+            .setScale(0.05)   
         // initialize animations
         initAnims(this.anims)
         //path for enemies
@@ -67,7 +64,9 @@ class MapOne extends Phaser.Scene {
             },
             callbackScope: this,
             loop: true
-        });        
+        });
+        
+        
     }   
 
     update(time, delta){
@@ -101,16 +100,6 @@ class MapOne extends Phaser.Scene {
         playerHealth.data.set('health', 100);
 
         return playerHealth
-    }
-
-    pauseMenu() {
-        const popup = new InGameMenu(this, 120, 30);
-        this.input.setDraggable(popup);
-        this.input.on('drag', (pointer, obj, x, y)=> {
-            obj.x = x;
-            obj.y = y;
-        });
-        return popup;
     }
 
 }
