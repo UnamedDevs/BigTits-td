@@ -87,7 +87,7 @@ export class Xbutton extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, text, callback ){
         super(scene, x, y, text);
         // Button Text
-        this.setTexture('cross')
+        this.setTexture('settings')
         this.scene.add.existing(this)
 
         //Button Event
