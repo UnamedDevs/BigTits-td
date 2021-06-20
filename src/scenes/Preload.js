@@ -10,14 +10,14 @@ class Preload extends Phaser.Scene {
         this.load.image('background', 'assets/Menu/waifu_bg.png');
         this.load.image('menu_background', 'assets/Menu/waifu_3.jpeg');
         this.load.image('pauseMenu', 'assets/Menu/waifu_4.jpg');
-
         this.load.image('heart', 'assets/Menu/heart.png');
 
         //button images
         this.load.image('hover', 'assets/Menu/PNG/blue_button04.png');
         this.load.image('static', 'assets/Menu/PNG/blue_button05.png');
         this.load.image('left', 'assets/Menu/PNG/blue_sliderLeft.png');
-        this.load.image('cross', 'assets/Menu/PNG/blue_boxCross.png');
+        this.load.image('settings', 'assets/Menu/PNG/settings.png');
+        this.load.image('playPause', 'assets/Menu/PNG/pause-play-button.png');
 
         // Map
         this.load.image('map_rock', 'assets/Maps/Map_Rock.png');
