@@ -27,10 +27,12 @@ export default class MapMenu extends Phaser.Scene{
             .setScrollFactor(0,0)
             .setFlipX(true)
         
-        const map1 = new BtnSprite(this, centerX, centerY,'','desertPlanet','desertPlanet', () => {this.toNextMap('map_rock')}  )
+        const map1 = new BtnSprite(this, centerX, centerY,'','desertPlanet','desertPlanet', () => {this.toNextMap('desertMap')}  )
         map1.setScale(0.3);
-        const map2 = new BtnSprite(this, centerX + 600, centerY, '', 'icePlanet', 'icePlanet', () => {this.toNextMap('proto_map')} );
+        const map2 = new BtnSprite(this, centerX + 600, centerY, '', 'icePlanet', 'icePlanet', () => {this.toNextMap('iceMap')} );
         map2.setScale(0.3);
+        const map3 = new BtnSprite(this, centerX - 600, centerY, '', 'lushPlanet', 'lushPlanet', () => {this.toNextMap('lushMap')} );
+        map3.setScale(0.3);
     }
 
     goBack = () => {
@@ -54,7 +56,7 @@ export default class MapMenu extends Phaser.Scene{
     }
 
     scrollLeft = () => {
-        if(this.counter != 0 || this.counter > 0 ){
+        if(this.counter === 0 || this.counter > 0 ){
             this.cameras.main.scrollX -= 600;
             this.counter -=1
         }

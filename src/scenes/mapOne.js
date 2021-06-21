@@ -32,7 +32,9 @@ class MapOne extends Phaser.Scene {
 
     create(){
         //---BACKGROUND
-        this.add.image(0, 0, this.selectedMap).setOrigin(0);
+        this.add.image(0, 0, this.selectedMap)
+            .setOrigin(0)
+            .setScale(0.4);
         //---INITIALIZE ANIMATIONS
         initAnims(this.anims)
         //---PAUSE MENU
@@ -48,7 +50,6 @@ class MapOne extends Phaser.Scene {
         });    
         //---PLAYER HEALTH----
         this.playerHealth = this.playerInfo();
-        console.log(this.playerHealth)
         let text = this.add.text(100, 25, '', {font:'16px'});
         text.setText(this.playerHealth.data.get('health'));
         this.playerHealth.on('changedata-health', (obj, val )=> {

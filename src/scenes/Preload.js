@@ -20,10 +20,12 @@ class Preload extends Phaser.Scene {
         this.load.image('playPause', 'assets/Menu/PNG/pause-play-button.png');
 
         // Map
-        this.load.image('map_rock', 'assets/Maps/Map_Rock.png');
-        this.load.image('proto_map', 'assets/Maps/protoMap.png');
         this.load.image('desertPlanet', 'assets/Maps/desertPlanet.png');
+        this.load.image('desertMap', 'assets/Maps/desertMap.png');
         this.load.image('icePlanet', 'assets/Maps/icePlanet.png');
+        this.load.image('iceMap', 'assets/Maps/IceMap.png');
+        this.load.image('lushPlanet', 'assets/Maps/lushPlanet.png');
+        this.load.image('lushMap', 'assets/Maps/lushMap.png');
 
         //Entities
         this.load.spritesheet('slime', 'assets/enemies/slime-sheet.png', {
@@ -36,8 +38,10 @@ class Preload extends Phaser.Scene {
         })
 
         //Towers?
+        this.load.image('aoeTower', 'assets/Towers/aoeTower.png');
+        this.load.image('frostTower', 'assets/Towers/frostTower.png');
+        this.load.image('laserTower', 'assets/Towers/laserTower.png');
         this.load.image('lightningTower', 'assets/Towers/lightningTower.png');
-        this.load.image('pp', 'assets/Towers/Doki.png');
 
         //Projectiles
         this.load.spritesheet('laser', 'assets/Projectiles/laser.png', {
