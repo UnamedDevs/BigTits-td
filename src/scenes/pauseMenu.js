@@ -13,7 +13,7 @@ class PauseMenu extends Phaser.Scene {
         .setScale(0.5);
 
         const Resume = new Button(this, 490, 200, 'Resume', () => {
-            this.scene.start('mapOne')
+            this.scene.switch('mapOne')
         });
 
         const Quit = new Button(this, 490, 260, 'Quit', () => {

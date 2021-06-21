@@ -41,8 +41,16 @@ export default class MapMenu extends Phaser.Scene{
     }
 
     toNextMap = (map) => {
-        localStorage.setItem('map', map);
-        this.scene.start('mapOne');
+        this.counter = 0;
+        let selectedMap = localStorage.setItem('map', map);
+        let currentMap  = localStorage.getItem('map');
+        
+        if(this.scene.isSleeping('mapOne') && selectedMap === currentMap){
+            this.scene.switch('mapOne');
+        }else{
+            this.scene.stop('mapOne');
+            this.scene.start('mapOne');
+        }
     }
 
     scrollLeft = () => {

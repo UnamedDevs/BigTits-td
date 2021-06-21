@@ -21,7 +21,6 @@ class MapOne extends Phaser.Scene {
         this.skelly;
         this.follower;
         this.eList = enemyList;
-
     }
 
     init(data){
@@ -38,22 +37,18 @@ class MapOne extends Phaser.Scene {
         initAnims(this.anims)
         //---PAUSE MENU
         this.menuBtn = new Xbutton(this, 20, 20, '', () => {
-            this.scene.stop();
-            this.enemyArray.forEach( sprite => {
-                sprite.pauseFollow();
-            })
-            this.scene.start('pmenu');
+            this.scene.switch('pmenu');
         });
         //---PLAY PAUSE BUTTTON
         this.playPause = this.add.image(760, 380, 'playPause');
         this.playPause.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-            console.log('pause');
-            this.enemyArray.forEach( sp => {
-                sp.pauseFollow();
+            this.enemyArray.forEach( sprite => {
+                sprite.isFollowing() ? sprite.pauseFollow() : sprite.resumeFollow();
             })
         });    
         //---PLAYER HEALTH----
         this.playerHealth = this.playerInfo();
+        console.log(this.playerHealth)
         let text = this.add.text(100, 25, '', {font:'16px'});
         text.setText(this.playerHealth.data.get('health'));
         this.playerHealth.on('changedata-health', (obj, val )=> {
@@ -73,11 +68,6 @@ class MapOne extends Phaser.Scene {
             callbackScope: this,
             loop: true
         }); 
-    
-        let test = new Phaser.Physics.Arcade.Sprite(this, this.path.curves[0].p0.x, 
-            this.path.curves[0].p0.y, 'skelly');
-        this.add.existing(test);
-        
 
     }   
 
@@ -87,10 +77,7 @@ class MapOne extends Phaser.Scene {
             this.time.removeEvent(this.round);
         }
 
-        if(this.playerHealth.data.values.health === 99){
-            this.time.removeEvent(this.round);
-            console.log('game over');
-        }
+
     }
 
     spawnRandom(adjustPlayerHealthOnEnd){
