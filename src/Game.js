@@ -13,7 +13,6 @@ const config = {
   height: 400,
   canvas,
   transparent: true,
-  backgroundColor: 'rgba(255, 110, 110, 0)',
   physics: {
     default: 'arcade',
     arcade: {

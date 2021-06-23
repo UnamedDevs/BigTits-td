@@ -1,9 +1,8 @@
 import Phaser from 'phaser';
 import initAnims from '../entities/anims';
 import Enemy from '../entities/enemy';
-import Tower from '../entities/tower';
 import enemyList from '../mixins/enemiesList';
-import {createRockPath, createProtoPath} from '../mixins/paths';
+import {createDesertPath, createIcePath, createLushPath } from '../mixins/paths';
 import {Xbutton} from '../entities/Button';
 
 class MapOne extends Phaser.Scene {
@@ -55,10 +54,22 @@ class MapOne extends Phaser.Scene {
         this.playerHealth.on('changedata-health', (obj, val )=> {
             text.setText([val]);
         });
+        //--CURRENT ROUND---
+        this.roundText    = this.add.text(135, 2, 'Round', {fontSize:'16px'});
+        this.currentRound = this.add.text(140, 15, '01', {fontSize:'32px'});
+        this.currentRound.setData({currRnd: 1});
         //---MAP PATHING
-        this.selectedMap === 'map_rock' ?
-            this.path = createRockPath() :
-            this.path = createProtoPath();
+        switch(this.selectedMap){
+            case 'desertMap':
+                this.path = createDesertPath();
+                break
+            case 'iceMap':
+                this.path = createIcePath();
+                break
+            case 'lushMap':
+                this.path = createLushPath();
+                break
+        }
         //---DELAY SPAWN LOOP
         this.round = this.time.addEvent({
             delay: 500,
