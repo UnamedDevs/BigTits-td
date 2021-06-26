@@ -10,16 +10,14 @@ class MapOne extends Phaser.Scene {
     constructor(){
         super('mapOne');
 
-        this.enemySpeed = 10000;
-        this.enemyLimit = 5;
-        this.playerHealth;
-        this.round;
         this.enemyArray = [];
-        this.path;
-        this.slime;
-        this.skelly;
-        this.follower;
         this.eList = enemyList;
+        this.roundEvent;
+        this.gameInfo = {
+            speed : 10000,
+            limit : 5,
+            round : 1
+        }
     }
 
     init(data){
@@ -41,12 +39,23 @@ class MapOne extends Phaser.Scene {
             this.scene.switch('pmenu');
         });
         //---PLAY PAUSE BUTTTON
+        // have two variables one for round and one check for end of round when 
+        //play is clicked if round is over spawn next wave of enemies else speed up
+        //enemies...
         this.playPause = this.add.image(760, 380, 'playPause');
         this.playPause.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-            this.enemyArray.forEach( sprite => {
-                sprite.isFollowing() ? sprite.pauseFollow() : sprite.resumeFollow();
-            })
-        });    
+            if(this.game.limit !== 0 ){
+                        //---DELAY SPAWN LOOP
+                this.roundEvent = this.time.addEvent({
+                    delay: 500,
+                    callback: () => {
+                        this.gameInfo.limit--;
+                        this.enemyArray.push(this.spawnRandom(this.playerHealth));
+                    },
+                    callbackScope: this,
+                    loop: true
+                    }); 
+            }        });    
         //---PLAYER HEALTH----
         this.playerHealth = this.playerInfo();
         let text = this.add.text(100, 25, '', {font:'16px'});
@@ -70,25 +79,15 @@ class MapOne extends Phaser.Scene {
                 this.path = createLushPath();
                 break
         }
-        //---DELAY SPAWN LOOP
-        this.round = this.time.addEvent({
-            delay: 500,
-            callback: () => {
-                this.enemyLimit--;
-                this.enemyArray.push(this.spawnRandom(this.playerHealth));
-            },
-            callbackScope: this,
-            loop: true
-        }); 
 
     }   
 
     update(time, delta){
 
-        if(this.enemyLimit === 0 ){
-            this.time.removeEvent(this.round);
+        if(this.gameInfo.limit === 0 ){
+            this.time.removeEvent(this.roundEvent);
+            this.gameInfo.limit = 10;
         }
-
 
     }
 
@@ -96,7 +95,7 @@ class MapOne extends Phaser.Scene {
         let rnd = Math.floor(Math.random() * this.eList.length)
         let rndEnemy = new Enemy(this, this.path, this.path.curves[0].p0.x, this.path.curves[0].p0.y, this.eList[rnd].texture);
         rndEnemy.startFollow({
-            duration: this.enemySpeed + rnd,
+            duration: this.gameInfo.speed + rnd,
             onComplete: () => {
                 rndEnemy.destroy();
                 adjustPlayerHealthOnEnd.data.values.health -= 1;
