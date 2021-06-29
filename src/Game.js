@@ -5,6 +5,7 @@ import Preload from './scenes/Preload';
 import MapMenu from './scenes/mapSelect';
 import MapOne from './scenes/mapOne';
 import PauseMenu from './scenes/pauseMenu';
+import GameOver from './scenes/gameOver';
 
 const canvas = document.getElementById('game');
 const config = {
@@ -25,7 +26,8 @@ const config = {
     Menu,
     MapMenu,
     MapOne,
-    PauseMenu
+    PauseMenu,
+    GameOver
   ]
 };
 

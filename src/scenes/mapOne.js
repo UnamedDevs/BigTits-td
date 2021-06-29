@@ -11,13 +11,13 @@ class MapOne extends Phaser.Scene {
         super('mapOne');
 
         this.enemyArray = [];
-        this.eList = enemyList;
-        this.roundEvent;
-        this.gameInfo = {
+        this.eList      = enemyList;
+        this.round      = 0;
+        this.nextRound  = 1;
+        this.gameInfo   = {
             speed : 10000,
             limit : 5,
-            round : 1
-        }
+        };
     }
 
     init(data){
@@ -44,18 +44,20 @@ class MapOne extends Phaser.Scene {
         //enemies...
         this.playPause = this.add.image(760, 380, 'playPause');
         this.playPause.setInteractive({useHandCursor: true}).on('pointerdown', () => {
-            if(this.game.limit !== 0 ){
-                        //---DELAY SPAWN LOOP
-                this.roundEvent = this.time.addEvent({
+            if(this.round !== this.nextRound){
+                this.round +=1;
+                this.time.addEvent({
                     delay: 500,
                     callback: () => {
                         this.gameInfo.limit--;
-                        this.enemyArray.push(this.spawnRandom(this.playerHealth));
+                        this.spawnRandom(this.playerHealth)
                     },
                     callbackScope: this,
                     loop: true
                     }); 
-            }        });    
+            this.playPause.disableInteractive();
+            }
+        });    
         //---PLAYER HEALTH----
         this.playerHealth = this.playerInfo();
         let text = this.add.text(100, 25, '', {font:'16px'});
@@ -80,17 +82,19 @@ class MapOne extends Phaser.Scene {
                 break
         }
 
-    }   
-
-    update(time, delta){
-
-        if(this.gameInfo.limit === 0 ){
-            this.time.removeEvent(this.roundEvent);
-            this.gameInfo.limit = 10;
-        }
-
     }
 
+    update(time, delta){
+        if(this.gameInfo.limit == 0){
+            this.nextRound += 1;
+            this.gameInfo.limit = 10;
+            this.time.removeAllEvents();
+            this.playPause.setInteractive();
+        }
+        else if( this.playerHealth.data.get('health') === 95 ){
+            this.scene.start('gameOver');
+        }
+    }
     spawnRandom(adjustPlayerHealthOnEnd){
         let rnd = Math.floor(Math.random() * this.eList.length)
         let rndEnemy = new Enemy(this, this.path, this.path.curves[0].p0.x, this.path.curves[0].p0.y, this.eList[rnd].texture);
@@ -99,7 +103,6 @@ class MapOne extends Phaser.Scene {
             onComplete: () => {
                 rndEnemy.destroy();
                 adjustPlayerHealthOnEnd.data.values.health -= 1;
-                this.enemyArray.pop()
             }
         }).play(this.eList[rnd].anim, false)
 
@@ -124,4 +127,14 @@ export default MapOne;
     .setOrigin(0)
     .setFlipX(true)
     .setScale(0.05)   
+
+        this.roundEvent = this.time.addEvent({
+        delay: 500,
+        callback: () => {
+            this.gameInfo.limit--;
+            this.enemyArray.push(this.spawnRandom(this.playerHealth));
+        },
+        callbackScope: this,
+        loop: true
+        }); 
 **/
