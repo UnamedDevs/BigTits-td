@@ -12,13 +12,23 @@ class Enemy extends Phaser.GameObjects.PathFollower {
 
         this.init();
         this.health;
+        this.follower = {t:0, vec: new Phaser.Math.Vector2()};
     }
 
     init(){
         
     }
 
-    update(){
+    update(time, delta){
+        
+    }
+
+    startPath () {
+        this.follower.t = 0;
+
+        path.getPoint(this.follower.t, this.follower.vec);
+
+        this.setPosition(this.follower.vec.x, this.follower.vec.y);
 
     }
 

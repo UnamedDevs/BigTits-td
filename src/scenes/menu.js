@@ -2,7 +2,6 @@ import {Scene} from 'phaser';
 import {Button} from '../entities/Button';
 
 
-
 class Menu extends Scene {
    constructor(){
         super('menu');

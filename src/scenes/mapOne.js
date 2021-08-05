@@ -80,8 +80,19 @@ class MapOne extends Phaser.Scene {
             case 'lushMap':
                 this.path = createLushPath();
                 break
-        }
+        };
+        //---TURRET SELECTOR
+        let selectedTower;
+        const aoeTower   = this.add.image(800, 70, 'aoeTower');
+        const laserTower = this.add.image(800, 160, 'laserTower').setScale(0.8);
+        const frostTower = this.add.image(800, 260, 'frostTower').setScale(0.6);
+        const lightningTower = this.add.image(800, 340, 'lightningTower').setScale(0.6);
 
+        [aoeTower, laserTower, frostTower, lightningTower].forEach( tower => {
+            tower.setInteractive().on('pointerdown', () => selectedTower = tower.texture.key)
+        })
+
+        this.input.on('pointerdown', () => console.log(selectedTower))
     }
 
     update(time, delta){
@@ -94,6 +105,7 @@ class MapOne extends Phaser.Scene {
         else if( this.playerHealth.data.get('health') === 95 ){
             this.scene.start('gameOver');
         }
+
     }
     spawnRandom(adjustPlayerHealthOnEnd){
         let rnd = Math.floor(Math.random() * this.eList.length)
