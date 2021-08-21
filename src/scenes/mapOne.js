@@ -3,6 +3,7 @@ import initAnims from '../entities/anims';
 import Tower from '../entities/tower';
 import Enemy from '../entities/enemy';
 import enemyList from '../mixins/enemiesList';
+import { desertRects } from '../mixins/rects';
 import {createDesertPath, createIcePath, createLushPath } from '../mixins/paths';
 import {Xbutton} from '../entities/Button';
 
@@ -74,12 +75,15 @@ class MapOne extends Phaser.Scene {
         switch(this.selectedMap){
             case 'desertMap':
                 this.path = createDesertPath();
+                this.Rects = desertRects(this);
                 break
             case 'iceMap':
                 this.path = createIcePath();
+                this.Rects = [];
                 break
             case 'lushMap':
                 this.path = createLushPath();
+                this.Rects = [];
                 break
         };
         //---TURRET SELECTOR---
@@ -92,32 +96,45 @@ class MapOne extends Phaser.Scene {
         [aoeTower, laserTower, frostTower, lightningTower].forEach( tower => {
             tower.setInteractive({setCursors:true}).on('pointerdown', () => selectedTower = tower.texture.key)
         })
-
-
         this.towers = this.add.group({classType: Tower, runChildUpdate: true});
-        this.background.setInteractive().on('pointerdown', () => {
-            console.log(selectedTower);
-            let tower;
-            let children = this.towers.getChildren();
-            selectedTower ? tower = this.towers.get() : null ;
-            if(tower){
-                children.forEach( child => {
-                    console.log(child)
-                    console.log(this.input.x === child.body.x);
-                })
-                console.log(this.input.x === tower.body.x)
-                tower.setOrigin(0.5, 0.5);
-                tower.setTexture(selectedTower);
-                tower.setActive(true);
-                tower.setVisible(true);
-                tower.placeTower(this.input.x, this.input.y);
+        
+        // overBackground and overRectangle to determine if user can place tower down;
+        let overBG = false;
+        let overRect = false;
+
+        this.background.setInteractive().on('pointerover', () => {
+            overBG = true;
+            overRect = false;
+        });
+
+        this.Rects.forEach( rec => rec.setInteractive().on('pointerover', () => { 
+            overRect = true;
+            overBG   = false;
+        }))
+
+        this.input.on('pointerdown', () => {
+            if(overBG === true){
+                let tower;
+                let children = this.towers.getChildren();
+                selectedTower ? tower = this.towers.get() : null ;
+                if(tower){
+                    children.forEach( child => {
+                        
+                    })
+                    console.log(this.input.x === tower.body.x)
+                    tower.setOrigin(0.5, 0.5);
+                    tower.setTexture(selectedTower);
+                    tower.setActive(true);
+                    tower.setVisible(true);
+                    tower.placeTower(this.input.x, this.input.y);
+                }
             }
         })
-
     }
 
     //---- UPDATE-------------------
     update(time, delta){
+        
         if(this.gameInfo.limit == 0){
             this.nextRound += 1;
             this.gameInfo.limit = 10;
